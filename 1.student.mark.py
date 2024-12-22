@@ -1,5 +1,5 @@
 # Student = [id, name, DoB]
-# Course = [id, name, (stid: stm)]
+# Course = [id, name,]
 # nb = [Number of students/courses, etc.]
 # stlst = [Student list, etc.]
 # cslst = [Course list, etc.]
