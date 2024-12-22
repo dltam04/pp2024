@@ -11,7 +11,7 @@ def std_inpf(stlst):
         print(f"Student number: {idx}")
         n = input ("Student name: ")
         i = input ("Student id: ")
-        b = input ("Student DoB ")
+        b = input ("Student DoB: ")
         print("---")
         stlst.append([n, i, b])
 
@@ -23,16 +23,17 @@ def cst_inpf(cslst):
         n = input ("Course id: ")
         i = input ("Course name: ")
         print("---")
-        cslst.append([n, i, ()])
+        cslst.append([n, i, {}])
 
 def mrk_inpf(cslst, stlst):
     print("---")
     csid = input("Select the course by course ID: ")
     cs = [cs for cs in cslst if cs[0] == csid] [0]
+    print("+++")
     print("Please insert student marks: ")
     for st in stlst:
         print("+++")
-        mrk = float(input(f"Student {st[1]} [{st[0]}] mark"))
+        mrk = float(input(f"Student {st[1]} [{st[0]}] mark: "))
         cs[2][st[0]] = mrk
     print("---")
 
@@ -55,7 +56,7 @@ def cst_lstf(cslst):
         print(f"Course name: {cs[1]}")
         print(f"Course marks: ")
         for k, v in cs[2].items():
-            print(f"\t Student [{k}] has mark: {v}")
+            print(f"Student [{k}] has mark: {v}")
     print("---")
 
 if __name__ == "__main__":
