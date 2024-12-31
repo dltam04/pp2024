@@ -1,7 +1,8 @@
-from domains import Student, Course
+from domains.student import Student # type: ignore
+from domains.course import Course # type: ignore
 
-import input
-import output
+import input # type: ignore
+import output # type: ignore
 import math
 
 class StudentMarkManagement:
