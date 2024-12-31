@@ -118,8 +118,8 @@ class StudentMarkManagement:
         for student in self.__students:
             i = student.get_id()
             mrk = float(input(f"Enter mark for Student {i}: "))
-            result = math.floor(mrk)
-            course.add_mark(i, result)
+            mrks = math.floor(mrk)
+            course.add_mark(i, mrks)
 
     def cal_gpa(self, student_id):
         print("---")
@@ -127,9 +127,9 @@ class StudentMarkManagement:
         weighted_sum = 0
 
         for course in self.__courses:
-            marks = course.get_marks()
-            if student_id in marks:
-                mark = marks[student_id]
+            mrks = course.add_marks()
+            if student_id in mrks:
+                mark = mrks[student_id]
                 credits = course.get_credits() 
                 weighted_sum += mark * credits
                 total_credits += credits
