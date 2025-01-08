@@ -1,67 +1,67 @@
 # Student = [id, name, DoB]
 # Course = [id, name,]
-# nb = [Number of students/courses, etc.]
-# stlst = [Student list, etc.]
-# cslst = [Course list, etc.]
+# ... = [Number of students/courses, etc.]
+# ... = [Student list, etc.]
+# ... = [Course list, etc.]
 
-def std_inpf(stlst):
+def student_input(student_list):
     print("---")
-    nb = int(input("Number of students: "))
-    for idx in range (nb):
+    number_of_students = int(input("Number of students: "))
+    for idx in range (number_of_students):
         print(f"Student number: {idx}")
-        n = input ("Student name: ")
-        i = input ("Student id: ")
-        b = input ("Student DoB: ")
+        student_name = input ("Student name: ")
+        student_id = input ("Student id: ")
+        student_dob = input ("Student DoB: ")
         print("---")
-        stlst.append([n, i, b])
+        student_list.append([student_name, student_id, student_dob])
 
-def cst_inpf(cslst):
+def course_input(course_list):
     print("---")
-    nb = int(input("Number of courses: "))
-    for idx in range (nb):
+    number_of_courses = int(input("Number of courses: "))
+    for idx in range (number_of_courses):
         print(f"Course number: {idx}")
-        n = input ("Course id: ")
-        i = input ("Course name: ")
+        course_name = input ("Course name: ")
+        course_id = input ("Course id: ")
         print("---")
-        cslst.append([n, i, {}])
+        course_list.append([course_name, course_id, {}])
 
-def mrk_inpf(cslst, stlst):
+def mark_input(course_list, student_list):
     print("---")
-    csid = input("Select the course by course ID: ")
-    cs = [cs for cs in cslst if cs[0] == csid] [0]
+    course_id = input("Select the course by course ID: ")
+    course = [course for course in course_list if course[0] == course_id] [0]
     print("+++")
     print("Please insert student marks: ")
-    for st in stlst:
+    for student in student_list:
         print("+++")
-        mrk = float(input(f"Student {st[1]} [{st[0]}] mark: "))
-        cs[2][st[0]] = mrk
+        mark = float(input(f"Student {student[1]} [{student[0]}] mark: "))
+        course[2][student[0]] = mark
     print("---")
 
-def std_lstf(stlst):
+def student_list(student_list):
     print("---")
-    print(f"There are {len(stlst)} students in system: ")
-    for st in stlst:
+    print(f"There are {len(student_list)} students in system: ")
+    for student in student_list:
         print("+++")
-        print(f"Student id: {st[0]}")
-        print(f"Student name: {st[1]}")
-        print(f"Student DoB: {st[2]}")
+        print(f"Student name: {student[0]}")
+        print(f"Student id: {student[1]}")
+        print(f"Student DoB: {student[2]}")
     print("---")
 
-def cst_lstf(cslst):
+def course_list(course_list):
     print("---")
-    print(f"There are {len(cslst)} courses in system: ")
-    for cs in cslst:
+    print(f"There are {len(course_list)} courses in system: ")
+    for course in course_list:
         print("+++")
-        print(f"Course id: {cs[0]}")
-        print(f"Course name: {cs[1]}")
+        print(f"Course name: {course[0]}")
+        print(f"Course id: {course[1]}")
         print(f"Course marks: ")
-        for k, v in cs[2].items():
+        for k, v in course[2].items():
             print(f"Student [{k}] has mark: {v}")
     print("---")
 
 if __name__ == "__main__":
-    stlst = []
-    cslst = []
+    student_list = []
+    course_list = []
 
     while True:
         opt = int(input(
@@ -80,17 +80,17 @@ if __name__ == "__main__":
         """))
 
         if opt == 1:
-            std_inpf(stlst)
+            student_input(student_list)
         elif opt == 2:
-            cst_inpf(cslst)
+            course_input(course_list)
         elif opt == 3:
-            std_lstf(stlst)
+            student_list(student_list)
         elif opt == 4:
-            cst_lstf(cslst)
+            course_list(course_list)
         elif opt == 5:
-            mrk_inpf(cslst, stlst)
+            mark_input(course_list, student_list)
         elif opt == 6:
-            cst_lstf(cslst)
+            course_list(course_list)
         elif opt == 7:
             break
         else:
