@@ -7,11 +7,11 @@ import math
 # cslst = [Course list, etc.]
 
 class Student:
-    def __init__(self, student_id, name, dob):
+    def __init__(self, student_id, student_name, student_dob):
         self.__student_id = student_id
-        self.__name = name
-        self.__dob = dob
-        self.__gpa = 0.0
+        self.__student_name = student_name
+        self.__student_dob = student_dob
+        self.__student_gpa = 0.0
 
     def get_id(self):
         return self.__student_id
@@ -19,42 +19,42 @@ class Student:
     def get_info(self):
         return {
             "id": self.__student_id,
-            "name": self.__name,
-            "dob": self.__dob,      
-            "gpa": self.__gpa
+            "name": self.__student_name,
+            "dob": self.__student_dob,
+            "gpa": self.__student_gpa
         }
     
     def get_gpa(self):
-        return self.__gpa  
+        return self.__student_gpa
     
-    def set_gpa(self, gpa):
-        self.__gpa = gpa
+    def set_gpa(self, student_gpa):
+        self.__student_gpa = student_gpa
 
 class Course:
-    def __init__(self, course_id, name, credits):
+    def __init__(self, course_id, course_name, course_credits):
         self.__course_id = course_id
-        self.__name = name
-        self.__credits = credits
-        self.__marks = {}
+        self.__course_name = course_name
+        self.__course_credits = course_credits
+        self.__course_marks = {}
 
     def get_id(self):
         return self.__course_id
     
     def get_credits(self):
-        return self.__credits
+        return self.__course_credits
 
     def add_mark(self, student_id, mark):
-        self.__marks[student_id] = mark
+        self.__course_marks[student_id] = mark
 
     def get_marks(self):
-        return self.__marks
+        return self.__course_marks
 
     def get_info(self):
         return {
             "id": self.__course_id,
-            "credits": self.__credits,
-            "name": self.__name,
-            "marks": self.__marks
+            "credits": self.__course_credits,
+            "name": self.__course_name,
+            "marks": self.__course_marks
         }
     
 class StudentMarkManagement:
@@ -62,31 +62,31 @@ class StudentMarkManagement:
         self.__students = []
         self.__courses = []
 
-    def input_st(self):
+    def input_student(self):
         print("---")
-        nb = int(input("Number of students: "))
-        for _ in range(nb):
-            n = input("Student Name: ")
-            i = input("Student ID: ")
-            b = input("Student DoB: ")
-            self.__students.append(Student(n, i, b))
+        number_of_students = int(input("Number of students: "))
+        for _ in range(number_of_students):
+            student_id = input("Student ID: ")
+            student_name = input("Student name: ")
+            student_dob = input("Student DoB: ")
+            self.__students.append(Student(student_name, student_id, student_dob))
 
-    def input_cs(self):
+    def input_course(self):
         print("---")
-        nb = int(input("Number of courses: "))
-        for _ in range(nb):
-            i = input("Course ID: ")
-            n = input("Course Name: ")
-            cr = int(input("Course Credits: "))
-            self.__courses.append(Course(i, n, cr))
+        number_of_courses = int(input("Number of courses: "))
+        for _ in range(number_of_courses):
+            course_id = input("Course ID: ")
+            course_name = input("Course Name: ")
+            course_credits = int(input("Course Credits: "))
+            self.__courses.append(Course(course_id, course_name, course_credits))
 
-    def stlst(self):
+    def list_students(self):
         print("---")
         for student in self.__students:
             info = student.get_info()
             print(f"ID: {info['id']}, Name: {info['name']}, DoB: {info['dob']}, GPA: {info['gpa']}")
 
-    def cslst(self):
+    def list_courses(self):
         print("---")
         for course in self.__courses:
             info = course.get_info()
@@ -94,32 +94,32 @@ class StudentMarkManagement:
             print(f"Course ID: {info['id']}, Name: {info['name']}, Credits: {info['credits']}")
             print("+++")
             print("Marks:")
-            for student_id, mrk in info['marks'].items():
-                print(f"Student {student_id}: {mrk}")
+            for student_id, mark in info['marks'].items():
+                print(f"Student {student_id}: {mark}")
 
-    def mrklst(self):
+    def list_marks(self):
         print("---")
         for course in self.__courses:
             info = course.get_info()
             print(f"Course ID: {info['id']}, Name: {info['name']}")
             print("+++")
             print("Marks:")
-            for student_id, mrk in info['marks'].items():
-                print(f"Student {student_id}: {mrk}")
+            for student_id, mark in info['marks'].items():
+                print(f"Student {student_id}: {mark}")
 
     def add_mark(self):
         print("---")
         course_id = input("Enter Course ID: ")
-        course = next((c for c in self.__courses if c.get_id() == course_id), None)
+        course = next((c for c in self.__courses if c.get_id() == course_id), None) 
         if not course:
             print("Course not found!")
             return
 
         for student in self.__students:
             i = student.get_id()
-            mrk = float(input(f"Enter mark for Student {i}: "))
-            mrks = math.floor(mrk)
-            course.add_mark(i, mrks)
+            mark = float(input(f"Enter mark for Student {i}: "))
+            mark_int = math.floor(mark)
+            course.add_mark(i, mark_int)
 
     def cal_gpa(self, student_id):
         print("---")
@@ -127,11 +127,11 @@ class StudentMarkManagement:
         weighted_sum = 0
 
         for course in self.__courses:
-            mrks = course.add_marks()
-            if student_id in mrks:
-                mark = mrks[student_id]
+            mark_to_cal = course.get_marks()
+            if student_id in mark_to_cal:
+                final_mark = mark_to_cal[student_id]
                 credits = course.get_credits() 
-                weighted_sum += mark * credits
+                weighted_sum += final_mark * credits
                 total_credits += credits
 
         return round(weighted_sum / total_credits, 2) if total_credits > 0 else 0.0
@@ -169,17 +169,17 @@ class StudentMarkManagement:
 
             option = int(input("Select an option: "))
             if option == 1:
-                self.input_st()
+                self.input_student()
             elif option == 2:
-                self.input_cs()
+                self.input_course()
             elif option == 3:
-                self.stlst()
+                self.list_students()
             elif option == 4:
-                self.cslst()
+                self.list_courses()
             elif option == 5:
                 self.add_mark()
             elif option == 6:
-                self.mrklst()
+                self.list_marks()
             elif option == 7:
                 self.calculate_gpa()
                 print("GPA calculated for all students.")
