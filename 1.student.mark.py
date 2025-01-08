@@ -28,7 +28,7 @@ def course_input(course_list):
 def mark_input(course_list, student_list):
     print("---")
     course_id = input("Select the course by course ID: ")
-    course = [course for course in course_list if course[0] == course_id] [0]
+    course = [course for course in course_list if course[1] == course_id] [0]
     print("+++")
     print("Please insert student marks: ")
     for student in student_list:
@@ -37,7 +37,7 @@ def mark_input(course_list, student_list):
         course[2][student[0]] = mark
     print("---")
 
-def student_list(student_list):
+def list_students(student_list):
     print("---")
     print(f"There are {len(student_list)} students in system: ")
     for student in student_list:
@@ -47,14 +47,14 @@ def student_list(student_list):
         print(f"Student DoB: {student[2]}")
     print("---")
 
-def course_list(course_list):
+def list_courses(course_list):
     print("---")
     print(f"There are {len(course_list)} courses in system: ")
     for course in course_list:
         print("+++")
         print(f"Course name: {course[0]}")
         print(f"Course id: {course[1]}")
-        print(f"Course marks: ")
+        print(f"\nCourse marks: ")
         for k, v in course[2].items():
             print(f"Student [{k}] has mark: {v}")
     print("---")
@@ -84,13 +84,13 @@ if __name__ == "__main__":
         elif opt == 2:
             course_input(course_list)
         elif opt == 3:
-            student_list(student_list)
+            list_students(student_list)
         elif opt == 4:
-            course_list(course_list)
+            list_courses(course_list)
         elif opt == 5:
             mark_input(course_list, student_list)
         elif opt == 6:
-            course_list(course_list)
+            list_courses(course_list)
         elif opt == 7:
             break
         else:

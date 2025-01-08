@@ -5,10 +5,10 @@
 # cslst = [Course list, etc.]
 
 class Student:
-    def __init__(self, student_id, name, dob):
+    def __init__(self, student_id, student_name, student_dob):
         self.__student_id = student_id
-        self.__name = name
-        self.__dob = dob
+        self.__student_name = student_name
+        self.__student_dob = student_dob
 
     def get_id(self):
         return self.__student_id
@@ -16,14 +16,14 @@ class Student:
     def get_info(self):
         return {
             "id": self.__student_id,
-            "name": self.__name,
-            "dob": self.__dob
+            "name": self.__student_name,
+            "dob": self.__student_dob
         }
     
 class Course:
-    def __init__(self, course_id, name):
+    def __init__(self, course_name, course_id):
+        self.__course_name = course_name
         self.__course_id = course_id
-        self.__name = name
         self.__marks = {}
 
     def get_id(self):
@@ -37,8 +37,8 @@ class Course:
 
     def get_info(self):
         return {
-            "id": self.__course_id,
-            "name": self.__name,
+            "id": self.__course_name,
+            "name": self.__course_id,
             "marks": self.__marks
         }
     
@@ -47,30 +47,30 @@ class StudentMarkManagement:
         self.__students = []
         self.__courses = []
 
-    def input_st(self):
+    def input_student(self):
         print("---")
-        nb = int(input("Number of students: "))
-        for _ in range(nb):
-            n = input("Student Name: ")
-            i = input("Student ID: ")
-            b = input("Student DoB: ")
-            self.__students.append(Student(n, i, b))
+        number_of_students = int(input("Number of students: "))
+        for _ in range(number_of_students):
+            student_name = input("Student Name: ")
+            student_id = input("Student ID: ")
+            student_dob = input("Student DoB: ")
+            self.__students.append(Student(student_name, student_id, student_dob))
 
-    def input_cs(self):
+    def input_course(self):
         print("---")
-        nb = int(input("Number of courses: "))
-        for _ in range(nb):
-            i = input("Course ID: ")
-            n = input("Course Name: ")
-            self.__courses.append(Course(i, n))
+        number_of_courses = int(input("Number of courses: "))
+        for _ in range(number_of_courses):
+            course_name = input("Course name: ")
+            course_id = input("Course id: ")
+            self.__courses.append(Course(course_name, course_id))
 
-    def stlst(self):
+    def sudent_list(self):
         print("---")
         for student in self.__students:
             info = student.get_info()
             print(f"ID: {info['id']}, Name: {info['name']}, DoB: {info['dob']}")
 
-    def cslst(self):
+    def course_list(self):
         print("---")
         for course in self.__courses:
             info = course.get_info()
@@ -78,18 +78,18 @@ class StudentMarkManagement:
             print(f"Course ID: {info['id']}, Name: {info['name']}")
             print("+++")
             print("Marks:")
-            for student_id, mrk in info['marks'].items():
-                print(f"Student {student_id}: {mrk}")
+            for student_id, mark in info['marks'].items():
+                print(f"Student {student_id}: {mark}")
 
-    def mrklst(self):
+    def mark_list(self):
         print("---")
         for course in self.__courses:
             info = course.get_info()
             print(f"Course ID: {info['id']}, Name: {info['name']}")
             print("+++")
             print("Marks:")
-            for student_id, mrk in info['marks'].items():
-                print(f"Student {student_id}: {mrk}")
+            for student_id, mark in info['marks'].items():
+                print(f"Student {student_id}: {mark}")
 
     def add_mark(self):
         print("---")
@@ -101,8 +101,8 @@ class StudentMarkManagement:
 
         for student in self.__students:
             i = student.get_id()
-            mrk = float(input(f"Enter mark for Student {i}: "))
-            course.add_mark(i, mrk)
+            mark = float(input(f"Enter mark for Student {i}: "))
+            course.add_mark(i, mark)
 
     def menu(self):
         while True:
@@ -115,20 +115,20 @@ class StudentMarkManagement:
             print("6. List marks")
             print("7. Exit")
 
-            option = int(input("Select an option: "))
-            if option == 1:
-                self.input_st()
-            elif option == 2:
-                self.input_cs()
-            elif option == 3:
-                self.stlst()
-            elif option == 4:
-                self.cslst()
-            elif option == 5:
+            opt = int(input("Select an option: "))
+            if opt == 1:
+                self.input_student()
+            elif opt == 2:
+                self.input_course()
+            elif opt == 3:
+                self.student_list()
+            elif opt == 4:
+                self.course_list()
+            elif opt == 5:
                 self.add_mark()
-            elif option == 6:
-                self.mrklst()
-            elif option == 7:
+            elif opt == 6:
+                self.mark_list()
+            elif opt == 7:
                 print("Exit.")
                 break
             else:
